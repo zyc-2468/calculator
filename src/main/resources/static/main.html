@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+
+<table border="1">
+    <tr>
+        <td><input type="text" id="num1" placeholder="请输入第一个数"/></td>
+        <td>
+            <select id="operation">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+        </td>
+        <td><input type="text" id="num2" placeholder="请输入第二个数"/></td>
+        <td><input type="button" value="=" onclick="getResult()"/></td>
+        <td><input type="text" name="result" id="result" />
+        </td>
+    </tr>
+</table>
+<!--</form>-->
+</body>
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function getResult() {
+        var a = parseInt(document.getElementById("num1").value);
+        var b = document.getElementById("operation").value;
+        var c = parseInt(document.getElementById("num2").value);
+
+        $.ajax({
+            url:"/c1",    //请求的url地址
+            dataType:"json",   //返回格式为json
+            async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data:{
+                a:a,
+                b:b,
+                c:c
+            },    //参数值
+            type:"POST",   //请求方式
+            success:function(req){
+                //请求成功时处理
+                document.getElementById("result").value=req;
+            },
+            error:function () {
+                console.log("error");
+            }
+        });
+
+    }
+
+</script>
+
+</html>
